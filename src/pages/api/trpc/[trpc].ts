@@ -2,8 +2,10 @@ import * as trpc from '@trpc/server';
 import * as trpcNext from '@trpc/server/adapters/next';
 import { z } from 'zod';
 import { prisma } from '../../../prisma/db/client';
+import superjson from 'superjson';
 export const appRouter = trpc
   .router()
+  .transformer(superjson)
   .query('hello', {
     input: z
       .object({
@@ -15,10 +17,11 @@ export const appRouter = trpc
         greeting: `hello ${input?.text ?? 'world'}`,
       };
     },
-  }).query("getAllQuestions", {
+  })
+  .query('getAllQuestions', {
     async resolve() {
-      return await prisma.question.findMany()
-    }
+      return await prisma.question.findMany();
+    },
   });
 
 // export type definition of API
