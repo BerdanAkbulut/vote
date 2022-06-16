@@ -16,6 +16,6 @@ model Question {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
 
-  endsAt  DateTime
-  question String
+  endsAt    DateTime
+  question  String
 }
