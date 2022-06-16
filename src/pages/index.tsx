@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { prisma } from '../prisma/db/client';
+import { prisma } from '../db/client';
 import { trpc } from '../utils/trpc';
 import type { NextPage } from 'next';
 const Home: NextPage = (props:any) => {
