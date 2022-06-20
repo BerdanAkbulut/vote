@@ -1,3 +1,84 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.centeredPortal {
+  margin: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 600px;
+  height: 700px;
+  background-color: whitesmoke;
+  display: flex;
+  padding: 15px;
+  border-radius: 25px;
+
+}
+.centeredPortal span:hover {
+    cursor: pointer;
+    transform: scale(0.90);
+    font-weight: bolder;  
+}
+.centeredPortal > span {
+       transition: all ease-in-out 200ms;
+}
+
+.chngPortal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.centeredForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+.centeredForm h2 {
+ 
+  font-size: larger;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-bottom: 20px;
+  border-bottom: 2px dashed burlywood;
+  color:black;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  word-spacing: 4px;
+  text-align: center;
+}
+
+.centeredPortal button {
+  background-color: brown;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all ease-in-out 300ms;
+  border-radius: 20px;
+}
+.centeredPortal button:hover {
+  transform: scale(0.95);
+}
+.answerDiv {
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+.inputStyle {
+
+}
+.disabled {
+  cursor: not-allowed;
+  
+}
