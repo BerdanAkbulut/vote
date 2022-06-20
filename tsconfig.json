@@ -15,9 +15,7 @@
     "jsx": "preserve",
     // Theo ' s additional settings
     "noUncheckedIndexedAccess": true,
-    "incremental": false,
-    "noImplicitAny": true,
-    "strictNullChecks": false
+    "incremental": false
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

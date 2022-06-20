@@ -7,15 +7,14 @@ const QuestionCreator: React.FC = () => {
   const answerDivRef = useRef<HTMLDivElement>();
   const addAnswerInput = () => {
     if (answerDivRef.current.childElementCount > 9) return;
-    console.log(answerDivRef.current.childElementCount);
     const input = document.createElement('input');
     input.classList.add('inputStyle');
     answerDivRef.current.appendChild(input);
   };
   const [error, setError] = useState('');
-  const [inputQuestion, setInputQuestion] = useState('');
+  const [inputQuestion, setInputQuestion] = useState<string>('');
   const client = trpc.useContext();
-  const { mutate, isLoading } = trpc.useMutation(['questions.create'], {
+  const createQuestion = trpc.useMutation(['questions.create'], {
     onSuccess: () => {
       client.invalidateQueries(['questions.getAllQuestions']);
       if (inputQuestion === '') return;
@@ -35,8 +34,8 @@ const QuestionCreator: React.FC = () => {
         InputLabelProps={{ size: 'small' }}
         value={inputQuestion}
         onChange={(event) => setInputQuestion(event.target.value)}
-        disabled={isLoading}
-        onKeyDown={(event) => {
+        disabled={createQuestion.isLoading}
+        onKeyDown={async (event) => {
           if (event.key === 'Enter') {
             const answers: any = [];
             const inputs = answerDivRef.current.getElementsByTagName('input');
@@ -44,8 +43,10 @@ const QuestionCreator: React.FC = () => {
             Object.values(inputs).map((input) => {
               answers.push({ answer: input.value });
             });
+            const name = 'asdasddsa';
 
-            mutate({
+            // @ts-expect-error: Let's ignore a compile error like this unreachable code
+            createQuestion.mutate({
               question: inputQuestion,
               answers: answers,
             });
