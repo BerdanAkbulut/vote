@@ -8,6 +8,7 @@ export function middleware(req: NextRequest) {
 
   const res = NextResponse.redirect(req.nextUrl);
 
+
   res.cookie('pool-token', random, { sameSite: 'strict' });
 
   return res;
