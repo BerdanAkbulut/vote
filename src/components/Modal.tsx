@@ -16,7 +16,7 @@ const QuestionCreator: React.FC = () => {
   const client = trpc.useContext();
   const createQuestion = trpc.useMutation(['questions.create'], {
     onSuccess: () => {
-      client.invalidateQueries(['questions.getAllQuestions']);
+      client.invalidateQueries(['questions.getAllQuestionsByUser']);
       if (inputQuestion === '') return;
       setInputQuestion('');
     },

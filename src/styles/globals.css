@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-blue-900/70;
+}
 .centeredPortal {
   margin: 0;
   position: fixed;
@@ -15,15 +18,14 @@
   display: flex;
   padding: 15px;
   border-radius: 25px;
-
 }
 .centeredPortal span:hover {
-    cursor: pointer;
-    transform: scale(0.90);
-    font-weight: bolder;  
+  cursor: pointer;
+  transform: scale(0.9);
+  font-weight: bolder;
 }
 .centeredPortal > span {
-       transition: all ease-in-out 200ms;
+  transition: all ease-in-out 200ms;
 }
 
 .chngPortal {
@@ -47,12 +49,12 @@
   padding: 20px;
 }
 .centeredForm h2 {
- 
   font-size: larger;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin-bottom: 20px;
   border-bottom: 2px dashed burlywood;
-  color:black;
+  color: black;
   font-weight: bolder;
   letter-spacing: 2px;
   word-spacing: 4px;
@@ -71,14 +73,12 @@
   transform: scale(0.95);
 }
 .answerDiv {
-display: flex;
-flex-direction: column;
-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .inputStyle {
-
 }
 .disabled {
   cursor: not-allowed;
-  
 }

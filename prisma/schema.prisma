@@ -21,7 +21,11 @@ model PollQuestion {
 
   question  String    @db.VarChar(5000)
 
+   ownerToken String @db.VarChar(255)
+
   answer    AnswerTab[]    
+
+  @@index([ownerToken])
 }
 
 

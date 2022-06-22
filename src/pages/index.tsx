@@ -5,15 +5,18 @@ import { trpc } from '../utils/trpc';
 import type { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import Modal from '../components/Modal';
+import Link from 'next/link';
 
 const Home: NextPage = (props: any) => {
   const [modal, openModal] = useState(false);
   const context = trpc.useContext();
   const answerRef = useRef<HTMLSpanElement>(null);
-  const { data, isLoading } = trpc.useQuery(['questions.getAllQuestions']);
+  const { data, isLoading } = trpc.useQuery([
+    'questions.getAllQuestionsByUser',
+  ]);
   const increasePick = trpc.useMutation(['questions.incrementAnswerPick'], {
     onSuccess: () => {
-      context.invalidateQueries(['questions.getAllQuestions']);
+      context.invalidateQueries(['questions.getAllQuestionsByUser']);
     },
   });
 
@@ -25,14 +28,22 @@ const Home: NextPage = (props: any) => {
 
   if (isLoading) {
     return (
-      <div className="h-screen bg-blue-900/70 flex justify-center items-center ">
-        Loading...
+      <div>
+        <Head>
+          <title>Home | voteX</title>
+        </Head>
+        <div className="h-screen bg-blue-900/70 flex justify-center items-center ">
+          Loading...
+        </div>
       </div>
     );
   }
 
   return (
     <>
+      <Head>
+        <title>Home | voteX</title>
+      </Head>
       <div className="bg-blue-900/70  p-10 flex flex-col relative z-1">
         <h1 className="text-red-300 text-center font-bold font-serif tracking-widest text-5xl">
           Question Pool
@@ -50,24 +61,26 @@ const Home: NextPage = (props: any) => {
 
           <div className="mt-[60px]">
             {data.map((question: any, i: any) => (
-              <div
-                className="mt-6 border-2 p-6 rounded-xl border-dashed"
-                key={i}
-              >
-                <h2 className="font-serif tracking-wider first-letter:capitalize text-red-200 text-3xl">
-                  {question.question}
-                </h2>
-                <div className="flex flex-row gap-6 text-slate-200 mt-3 ">
-                  {question.answer.map((answer: any, i: any) => (
-                    <span
-                      ref={answerRef}
-                      onClick={() => voteHandler(answer.id)}
-                      className="text-2xl hover:border-2  border-black p-2 rounded-2xl cursor-pointer transition-all ease-in-out duration-500 hover:scale-90"
-                      key={i}
-                    >{`${++i}) ${answer.answer}`}</span>
-                  ))}
+              <Link key={i} href={`/question/${question.id}`}>
+                <div
+                  className="mt-6 border-2 p-6 rounded-xl border-dashed"
+                  key={i}
+                >
+                  <h2 className="font-serif tracking-wider first-letter:capitalize text-red-200 text-3xl">
+                    {question.question}
+                  </h2>
+                  <div className="flex flex-row gap-6 text-slate-200 mt-3 ">
+                    {question.answer.map((answer: any, i: any) => (
+                      <span
+                        ref={answerRef}
+                        onClick={() => voteHandler(answer.id)}
+                        className="text-2xl hover:border-2  border-black p-2 rounded-2xl cursor-pointer transition-all ease-in-out duration-500 hover:scale-90"
+                        key={i}
+                      >{`${++i}) ${answer.answer}`}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </code>
