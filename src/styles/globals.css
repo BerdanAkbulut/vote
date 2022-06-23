@@ -13,7 +13,7 @@ body {
   transform: translate(-50%, -50%);
   z-index: 1000;
   width: 600px;
-  height: 700px;
+  height: 750px;
   background-color: whitesmoke;
   display: flex;
   padding: 15px;
@@ -61,13 +61,17 @@ body {
   text-align: center;
 }
 
-.centeredPortal button {
+#add-answer {
   background-color: brown;
   padding: 10px;
   color: white;
   cursor: pointer;
   transition: all ease-in-out 300ms;
   border-radius: 20px;
+}
+
+#add-question {
+  @apply  p-2 bg-indigo-700 text-white rounded-2xl transition-all duration-500
 }
 .centeredPortal button:hover {
   transform: scale(0.95);
@@ -77,8 +81,7 @@ body {
   flex-direction: column;
   gap: 20px;
 }
-.inputStyle {
-}
+
 .disabled {
   cursor: not-allowed;
 }

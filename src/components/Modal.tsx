@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { trpc } from '../utils/trpc';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { toast } from 'react-toastify';
 const QuestionCreator: React.FC = () => {
   const answerDivRef = useRef<HTMLDivElement>();
   const addAnswerInput = () => {
@@ -12,17 +13,16 @@ const QuestionCreator: React.FC = () => {
     answerDivRef.current.appendChild(input);
   };
   const [error, setError] = useState('');
+  const [answerError, setAnswerError] = useState('');
+
   const [inputQuestion, setInputQuestion] = useState<string>('');
   const client = trpc.useContext();
   const createQuestion = trpc.useMutation(['questions.create'], {
     onSuccess: () => {
       client.invalidateQueries(['questions.getAllQuestionsByUser']);
-      if (inputQuestion === '') return;
       setInputQuestion('');
     },
-    onError: () => {
-      setError('Question at least be 5 characters !');
-    },
+    onError: () => {},
   });
 
   return (
@@ -35,30 +35,47 @@ const QuestionCreator: React.FC = () => {
         value={inputQuestion}
         onChange={(event) => setInputQuestion(event.target.value)}
         disabled={createQuestion.isLoading}
-        onKeyDown={async (event) => {
-          if (event.key === 'Enter') {
-            const answers: any = [];
-            const inputs = answerDivRef.current.getElementsByTagName('input');
-
-            Object.values(inputs).map((input) => {
-              answers.push({ answer: input.value });
-            });
-            const name = 'asdasddsa';
-
-            // @ts-expect-error: Let's ignore a compile error like this unreachable code
-            createQuestion.mutate({
-              question: inputQuestion,
-              answers: answers,
-            });
-          }
-        }}
         id="standard-basic"
         label=""
         variant="standard"
       />
       {error && <span>{error}</span>}
-      <button onClick={addAnswerInput}>Add Answer</button>
+      <button id="add-answer" onClick={addAnswerInput}>
+        Add Answer
+      </button>
+
       <div className="answerDiv" ref={answerDivRef}></div>
+      {answerError && <span>{answerError}</span>}
+
+      <button
+        style={{}}
+        onClick={() => {
+          if (inputQuestion.length < 5) {
+            setError('Question at least be 5 characters !');
+            return;
+          }
+
+          const answers: any = [];
+          const inputs = answerDivRef.current.getElementsByTagName('input');
+
+          Object.values(inputs).map((input) => {
+            if (input.value === '') {
+              setAnswerError('Answer cannot be empty ');
+              return;
+            }
+            answers.push({ answer: input.value });
+          });
+
+          // @ts-expect-error: Let's ignore a compile error like this unreachable code
+          createQuestion.mutate({
+            question: inputQuestion,
+            answers: answers,
+          });
+        }}
+        id="add-question"
+      >
+        Add Question
+      </button>
     </div>
   );
 };
