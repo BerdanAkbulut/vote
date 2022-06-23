@@ -4,6 +4,8 @@ import { trpc } from '../../utils/trpc';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingPage from '../LoadingPage';
+import Head from 'next/head';
 
 type Props = {};
 
@@ -26,11 +28,9 @@ const QuestionPage = (props: Props) => {
   };
 
   function calculatePercent(pay: number, payda: number) {
-  
     let y: number;
-    pay = y * payda / 100;
+    pay = (y * payda) / 100;
     console.log(y);
-   
   }
 
   const { data, error, isLoading } = trpc.useQuery(
@@ -51,8 +51,8 @@ const QuestionPage = (props: Props) => {
     }
   );
 
-  if (!data) {
-    return <div>Loading</div>;
+  if (!data || isLoading) {
+    return <LoadingPage title="Question Page" />;
   }
   if (error) {
     return <div>An error happened</div>;
@@ -60,6 +60,9 @@ const QuestionPage = (props: Props) => {
 
   return (
     <div className="p-10 flex flex-col gap-10">
+      <Head>
+        <title>Question Page</title>
+      </Head>
       <ToastContainer />
 
       {data.owner && (

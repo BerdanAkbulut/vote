@@ -6,7 +6,8 @@ import type { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import Modal from '../components/Modal';
 import Link from 'next/link';
-import CachedIcon from '@mui/icons-material/Cached';
+
+import LoadingPage from './LoadingPage';
 const Home: NextPage = (props: any) => {
   const [modal, openModal] = useState(false);
   const context = trpc.useContext();
@@ -21,18 +22,8 @@ const Home: NextPage = (props: any) => {
   //   },
   // });
 
-  
   if (isLoading) {
-    return (
-      <div>
-        <Head>
-          <title>Home | voteX</title>
-        </Head>
-        <div className="h-screen flex justify-center items-center ">
-          <CachedIcon style={{ fontSize: 80 }} className="animate-spin" />
-        </div>
-      </div>
-    );
+    return <LoadingPage title={`Home | voteX`} />;
   }
 
   return (
