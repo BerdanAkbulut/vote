@@ -71,7 +71,7 @@ body {
 }
 
 #add-question {
-  @apply  p-2 bg-indigo-700 text-white rounded-2xl transition-all duration-500
+  @apply p-2 bg-indigo-700 text-white rounded-2xl transition-all duration-500;
 }
 .centeredPortal button:hover {
   transform: scale(0.95);
@@ -84,4 +84,17 @@ body {
 
 .disabled {
   cursor: not-allowed;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  font-size: 1.3rem;
+  color: black;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
 }

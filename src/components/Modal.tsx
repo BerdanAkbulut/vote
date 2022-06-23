@@ -9,7 +9,7 @@ const QuestionCreator: React.FC = () => {
   const addAnswerInput = () => {
     if (answerDivRef.current.childElementCount > 9) return;
     const input = document.createElement('input');
-    input.classList.add('inputStyle');
+    input.classList.add('form__field');
     answerDivRef.current.appendChild(input);
   };
   const [error, setError] = useState('');
